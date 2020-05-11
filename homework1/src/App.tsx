@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-const App = async () => {
-  const getMaskList = async () => {
-    axios.get('https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/stores/json?page=1&perPage=500');
-  }
-  const a = getMaskList();
+import SearchInput from './components/SearchInput/SearchInput';
+import SearchBtn from './components/SearchBtn/SearchBtn';
+
+const App = () => {
+  const [searchText, setSearchText] = useState('');
+
+  const handleSubmit = async () => {
+    const data = await axios.get('naver.com');
+    console.log(data);
+
+  };
+
   return (
 
     <div className="App">
-      <div>
-        aaa
-        {a}
-
-      </div>
+      <SearchInput searchText={searchText} onChange={setSearchText} />
+      <SearchBtn onSubmit={handleSubmit} />
     </div>
   );
 };
