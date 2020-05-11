@@ -5,12 +5,28 @@ import SearchInput from './components/SearchInput/SearchInput';
 import SearchBtn from './components/SearchBtn/SearchBtn';
 
 const App = () => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState<string>('');
+  const [video, setVideo] = useState<Object[]>([]);
 
-  const handleSubmit = async () => {
-    const data = await axios.get('naver.com');
-    console.log(data);
+  const handleSubmit = async (e: React.FormEvent) => {
 
+    const youtube = axios.create({
+      baseURL: 'https://www.googleapis.com/youtube/v3',
+    });
+
+    const response = await youtube.get('search', {
+      params: {
+        part: 'snippet',
+        maxResults: 5,
+        key: 'AIzaSyAY7kDFaVbdzAyIfaR6ck95tgshjf8wPzs',
+        q: searchText,
+      }
+    });
+
+    console.log(response);
+
+    setVideo(response.data.items);
+    e.preventDefault();
   };
 
   return (
@@ -18,6 +34,9 @@ const App = () => {
     <div className="App">
       <SearchInput searchText={searchText} onChange={setSearchText} />
       <SearchBtn onSubmit={handleSubmit} />
+      {
+        video
+      }
     </div>
   );
 };
