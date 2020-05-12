@@ -30,6 +30,7 @@ const App = () => {
     <div className="App">
       <SearchInput searchText={searchText} onChange={setSearchText} />
       <SearchBtn onSubmit={handleSubmit} />
+      <div>{JSON.stringify(video)}</div>
 
     </div>
   );
