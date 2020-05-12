@@ -6,10 +6,9 @@ import SearchBtn from './components/SearchBtn/SearchBtn';
 
 const App = () => {
   const [searchText, setSearchText] = useState<string>('');
-  const [video, setVideo] = useState<Object[]>([]);
+  const [video, setVideo] = useState<any>([]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-
+  const handleSubmit = async (e: any) => {
     const youtube = axios.create({
       baseURL: 'https://www.googleapis.com/youtube/v3',
     });
@@ -24,19 +23,14 @@ const App = () => {
     });
 
     console.log(response);
-
     setVideo(response.data.items);
-    e.preventDefault();
   };
 
   return (
-
     <div className="App">
       <SearchInput searchText={searchText} onChange={setSearchText} />
       <SearchBtn onSubmit={handleSubmit} />
-      {
-        video
-      }
+
     </div>
   );
 };
